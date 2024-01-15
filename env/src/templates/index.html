@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flask NLP App</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+
+      form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        max-width: 800px;
+        margin: 20px auto;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center form items horizontally */
+        height: auto; /* Set height to auto to expand with content */
+        min-height: 200px; /* Set a minimum height for the form */
+      }
+
+      label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 8px;
+        text-align: left;
+        width: 100%; /* Make label full width */
+      }
+
+      textarea {
+        width: 100%;
+        min-width: 40%;
+        max-width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        min-height: 100px; /* Set a minimum height for the textarea */
+      }
+
+      button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      #prediction_result {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 18px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>PFE Field Detection</h1>
+    <form action="{{ url_for('predict') }}" method="post">
+      <label for="subject_description">Subject Description:</label>
+      <textarea
+        id="subject_description"
+        name="subject_description"
+        rows="4"
+        cols="50"
+        placeholder="Enter your text here..."
+      ></textarea>
+      <button type="submit">Predict</button>
+    </form>
+    <div id="prediction_result">
+      {% if gnb_prediction %}
+      <p><b>Gaussian Prediction: </b>{{ gnb_prediction }}</p>
+      <p><b>Linear_SVM Prediction: </b>{{ linear_svm_prediction}}</p>
+      <p><b>RBF_SVM Prediction: </b>{{ rbf_svm_prediction}}</p>
+      <p><b>POLY_SVM Prediction: </b>{{ poly_svm_prediction}}</p>
+      <p><b>Sigmoid_SVM Prediction: </b>{{ sigmoid_svm_prediction}}</p>
+      <p><b>Neural Prediction: </b>{{ neural_prediction}}</p>
+
+      {% endif %}
+    </div>
+  </body>
+</html>
